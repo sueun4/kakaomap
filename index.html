@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>카카오맵 키워드 검색</title>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_APP_KEY"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <h1>키워드 검색 결과</h1>
+    <div id="map"></div>
+    <ul id="places-list"></ul>
+
+    <script>
+        fetch('places.json')
+            .then(response => response.json())
+            .then(places => {
+                // 지도 표시
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                    mapOption = { 
+                        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    }; 
+
+                var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+                
+                var bounds = new kakao.maps.LatLngBounds();
+                
+                // 장소 목록 표시
+                var listEl = document.getElementById('places-list');
+                places.forEach(place => {
+                    var listItem = document.createElement('li');
+                    listItem.textContent = place.place_name;
+                    listEl.appendChild(listItem);
+                    
+                    var markerPosition = new kakao.maps.LatLng(place.y, place.x);
+                    var marker = new kakao.maps.Marker({
+                        position: markerPosition
+                    });
+                    marker.setMap(map);
+                    bounds.extend(markerPosition);
+                });
+
+                map.setBounds(bounds);
+            });
+    </script>
+</body>
+</html>
