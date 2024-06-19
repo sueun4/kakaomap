@@ -46,6 +46,8 @@ body {
 #placesList {
     list-style: none;
     padding: 0;
+    max-height: 300px; 
+    overflow-y: auto; 
 }
 
 #placesList li {
