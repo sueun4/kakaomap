@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>내 근처 운동 SPOT</title>
+    <link rel="stylesheet" href="kakaomap.css">
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=c7b4b0066cb32822435d0f7ae3e7bef6&libraries=services"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>내 근처 운동 SPOT</h1>
+        <div id="map"></div>
+        <div class="controls">
+            <button id="locateButton">내 위치 찾기</button>
+            <label><input type="checkbox" id="gym" checked> 헬스장</label>
+            <label><input type="checkbox" id="park"> 공원</label>
+            <label><input type="checkbox" id="playground"> 운동장</label>
+            <button id="searchButton">검색하기</button>
+        </div>
+        <ul id="placesList"></ul>
+    </div>
+    <script src="kakaomap.js"></script>
+</body>
+</html>
