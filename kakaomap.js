@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var placesService = new kakao.maps.services.Places();
     var markers = [];
     var currentPosition = null;
+    var circle = null;
 
     document.getElementById('locateButton').addEventListener('click', function () {
         if (navigator.geolocation) {
@@ -16,6 +17,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 var lng = position.coords.longitude;
                 currentPosition = new kakao.maps.LatLng(lat, lng);
                 map.setCenter(currentPosition);
+
+                // 현재 위치에 마커 추가
+                var currentMarker = new kakao.maps.Marker({
+                    position: currentPosition,
+                    map: map
+                });
+
+                // 현재 위치에 원 추가
+                if (circle) {
+                    circle.setMap(null);
+                }
+                circle = new kakao.maps.Circle({
+                    center: currentPosition,
+                    radius: 1000,
+                    strokeWeight: 2,
+                    strokeColor: '#75B8FA',
+                    strokeOpacity: 1,
+                    strokeStyle: 'solid',
+                    fillColor: '#CFE7FF',
+                    fillOpacity: 0.5
+                });
+                circle.setMap(map);
             });
         } else {
             alert('GPS를 지원하지 않습니다');
@@ -44,6 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (status === kakao.maps.services.Status.OK) {
                     displayPlaces(data);
                     displayMarkers(data);
+                } else {
+                    console.error('검색 중 오류 발생:', status);
                 }
             }, { location: locPosition, radius: 1000 });
         });
@@ -67,6 +92,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 map: map
             });
             markers.push(marker);
+
+            // 마커에 클릭 이벤트를 등록하여 장소 이름 표시
+            kakao.maps.event.addListener(marker, 'click', function () {
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: `<div style="padding:5px;font-size:12px;">${place.place_name}</div>`
+                });
+                infowindow.open(map, marker);
+            });
         });
     }
 
