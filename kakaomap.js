@@ -18,11 +18,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentPosition = new kakao.maps.LatLng(lat, lng);
                 map.setCenter(currentPosition);
 
+                // 현재 위치에 마커 추가
                 var currentMarker = new kakao.maps.Marker({
                     position: currentPosition,
                     map: map
                 });
 
+                // 현재 위치에 원 추가
                 if (circle) {
                     circle.setMap(null);
                 }
@@ -48,9 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (document.getElementById('gym').checked) keywords.push('헬스장');
         if (document.getElementById('park').checked) keywords.push('공원');
         if (document.getElementById('playground').checked) keywords.push('운동장');
-        if (document.getElementById('yoga').checked) keywords.push('요가');
-        if (document.getElementById('pilates').checked) keywords.push('필라테스');
-        if (document.getElementById('gymnasium').checked) keywords.push('체육관');
 
         if (currentPosition) {
             searchPlaces(currentPosition, keywords);
@@ -71,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     console.error('검색 중 오류 발생:', status);
                 }
-            }, { location: locPosition, radius: 1000 });
+            }, { location: locPosition, radius: 500 });
         });
     }
 
@@ -94,12 +93,27 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             markers.push(marker);
 
-            kakao.maps.event.addListener(marker, 'click', function () {
-                var infowindow = new kakao.maps.InfoWindow({
-                    content: `<div style="padding:5px;font-size:12px;">${place.place_name}</div>`
-                });
-                infowindow.open(map, marker);
-            });
+            // 마커에 클릭 이벤트를 등록하여 장소 이름 표시
+            // 인포윈도우 상태를 추적하는 변수
+    var infowindowVisible = false;
+    
+    // 인포윈도우 객체 생성
+    var infowindow = new kakao.maps.InfoWindow({
+        content: `<div style="padding:5px;font-size:12px;color:black;">${place.place_name}</div>`
+    });
+    
+    kakao.maps.event.addListener(marker, 'click', function () {
+        if (infowindowVisible) {
+            // 인포윈도우가 열려있으면 닫기
+            infowindow.close();
+        } else {
+            // 인포윈도우가 닫혀있으면 열기
+            infowindow.open(map, marker);
+        }
+        // 인포윈도우 상태 반전
+        infowindowVisible = !infowindowVisible;
+    });
+
         });
     }
 
