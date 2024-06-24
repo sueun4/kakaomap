@@ -50,6 +50,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (document.getElementById('gym').checked) keywords.push('헬스장');
         if (document.getElementById('park').checked) keywords.push('공원');
         if (document.getElementById('playground').checked) keywords.push('운동장');
+        if (document.getElementById('pilates').checked) keywords.push('필라테스');
+        if (document.getElementById('yoga').checked) keywords.push('요가');
+        if (document.getElementById('gymnasium').checked) keywords.push('체육관');
 
         if (currentPosition) {
             searchPlaces(currentPosition, keywords);
