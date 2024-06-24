@@ -1,8 +1,9 @@
 html, body {
     height: 100%;
-    margin-top: 50px;
+    margin: 0;
     font-family: Arial, sans-serif;
     background-color: #333;
+    display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;   
@@ -13,13 +14,13 @@ html, body {
     width: 80%;
     max-width: 800px;
     margin: auto;
-    padding: 20px;  /* 추가 */
+    padding: 20px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    overflow-y: auto;  /* 추가 */
+    overflow-y: auto;
 }
 
 #map {
@@ -53,9 +54,9 @@ html, body {
 #placesList {
     list-style: none;
     padding: 0;
-    max-height: 300px;  /* 추가 */
-    overflow-y: auto;  /* 추가 */
-    width: 100%;  /* 추가 */
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
 }
 
 #placesList li {
