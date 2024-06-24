@@ -94,12 +94,26 @@ document.addEventListener('DOMContentLoaded', function () {
             markers.push(marker);
 
             // 마커에 클릭 이벤트를 등록하여 장소 이름 표시
-            kakao.maps.event.addListener(marker, 'click', function () {
-                var infowindow = new kakao.maps.InfoWindow({
-                    content: `<div style="padding:5px;font-size:12px;">${place.place_name}</div>`
-                });
-                infowindow.open(map, marker);
-            });
+            // 인포윈도우 상태를 추적하는 변수
+    var infowindowVisible = false;
+    
+    // 인포윈도우 객체 생성
+    var infowindow = new kakao.maps.InfoWindow({
+        content: `<div style="padding:5px;font-size:12px;font-color:black;">${place.place_name}</div>`
+    });
+    
+    kakao.maps.event.addListener(marker, 'click', function () {
+        if (infowindowVisible) {
+            // 인포윈도우가 열려있으면 닫기
+            infowindow.close();
+        } else {
+            // 인포윈도우가 닫혀있으면 열기
+            infowindow.open(map, marker);
+        }
+        // 인포윈도우 상태 반전
+        infowindowVisible = !infowindowVisible;
+    });
+
         });
     }
 
