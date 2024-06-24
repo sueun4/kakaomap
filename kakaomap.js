@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // 인포윈도우 객체 생성
     var infowindow = new kakao.maps.InfoWindow({
-        content: `<div style="padding:5px;font-size:12px;font-color:black;">${place.place_name}</div>`
+        content: `<div style="padding:5px;font-size:12px;color:black;">${place.place_name}</div>`
     });
     
     kakao.maps.event.addListener(marker, 'click', function () {
