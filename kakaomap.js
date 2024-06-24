@@ -18,13 +18,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentPosition = new kakao.maps.LatLng(lat, lng);
                 map.setCenter(currentPosition);
 
-                // 현재 위치에 마커 추가
                 var currentMarker = new kakao.maps.Marker({
                     position: currentPosition,
                     map: map
                 });
 
-                // 현재 위치에 원 추가
                 if (circle) {
                     circle.setMap(null);
                 }
@@ -73,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     console.error('검색 중 오류 발생:', status);
                 }
-            }, { location: locPosition, radius: 500 });
+            }, { location: locPosition, radius: 1000 });
         });
     }
 
@@ -96,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             markers.push(marker);
 
-            // 마커에 클릭 이벤트를 등록하여 장소 이름 표시
             kakao.maps.event.addListener(marker, 'click', function () {
                 var infowindow = new kakao.maps.InfoWindow({
                     content: `<div style="padding:5px;font-size:12px;">${place.place_name}</div>`
