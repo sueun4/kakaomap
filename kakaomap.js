@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 circle = new kakao.maps.Circle({
                     center: currentPosition,
-                    radius: 1000,
+                    radius: 500,
                     strokeWeight: 2,
                     strokeColor: '#75B8FA',
                     strokeOpacity: 1,
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     console.error('검색 중 오류 발생:', status);
                 }
-            }, { location: locPosition, radius: 1000 });
+            }, { location: locPosition, radius: 500 });
         });
     }
 
