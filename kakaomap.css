@@ -12,7 +12,7 @@ html, body {
     text-align: center;
     width: 80%;
     max-width: 800px;
-    margin: auto;
+    margin-top: 100px;
     padding: 20px;  /* 추가 */
     height: 100%;
     display: flex;
