@@ -17,16 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 var lng = position.coords.longitude;
                 currentPosition = new kakao.maps.LatLng(lat, lng);
                 map.setCenter(currentPosition);
-            },
     
-                },
-
                 // 현재 위치에 마커 추가
                 var currentMarker = new kakao.maps.Marker({
                     position: currentPosition,
                     map: map
                 });
-
+    
                 // 현재 위치에 원 추가
                 if (circle) {
                     circle.setMap(null);
@@ -42,12 +39,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     fillOpacity: 0.5
                 });
                 circle.setMap(map);
-            });
-        } function (error) {
-        console.error("Error Code = " + error.code + " - " + error.message);
-        alert('위치 정보를 가져오는 데 실패했습니다.');
-    }
+            },
+            function (error) {
+                console.error("Error Code = " + error.code + " - " + error.message);
+                alert('위치 정보를 가져오는 데 실패했습니다.');
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            }
+        );
     });
+    
 
     document.getElementById('searchButton').addEventListener('click', function () {
         var keywords = [];
