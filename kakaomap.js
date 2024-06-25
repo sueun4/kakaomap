@@ -12,11 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('locateButton').addEventListener('click', function () {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var lat = position.coords.latitude;
-                var lng = position.coords.longitude;
-                currentPosition = new kakao.maps.LatLng(lat, lng);
-                map.setCenter(currentPosition);
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+                    console.log("Latitude: " + lat + ", Longitude: " + lng);
+                    currentPosition = new kakao.maps.LatLng(lat, lng);
+                    map.setCenter(currentPosition);
+                },
 
                 // 현재 위치에 마커 추가
                 var currentMarker = new kakao.maps.Marker({
