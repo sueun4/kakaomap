@@ -11,14 +11,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var circle = null;
 
     document.getElementById('locateButton').addEventListener('click', function () {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    var lat = position.coords.latitude;
-                    var lng = position.coords.longitude;
-                    console.log("Latitude: " + lat + ", Longitude: " + lng);
-                    currentPosition = new kakao.maps.LatLng(lat, lng);
-                    map.setCenter(currentPosition);
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                currentPosition = new kakao.maps.LatLng(lat, lng);
+                map.setCenter(currentPosition);
+            },
+    
                 },
 
                 // 현재 위치에 마커 추가
@@ -43,9 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 circle.setMap(map);
             });
-        } else {
-            alert('GPS를 지원하지 않습니다');
-        }
+        } function (error) {
+        console.error("Error Code = " + error.code + " - " + error.message);
+        alert('위치 정보를 가져오는 데 실패했습니다.');
+    }
     });
 
     document.getElementById('searchButton').addEventListener('click', function () {
